@@ -15,7 +15,7 @@ build:
     - script:
       name: Build
       code: |
-        echo "Hello Java Flight Recorder!"
+        echo "Hello!"
         echo "Choose the pipeline you want to run, e.g. 'test-timeout' and run it like this:"
         echo "wercker build --pipeline=test-timeout"
 
@@ -24,11 +24,13 @@ regular-test:
     - script:
       name: Install pre-reqs
       code: |
-        yum -y install tar gzip
-    - java/maven:
+        yum -y install tar gzip procps
+    - wercker/maven:
       goals: clean compile
-    - java/maven:
+      version: 3.5.2
+    - wercker/maven:
       goals: install
+      version: 3.5.2
     # you should push your image now :)
     #  - internal/docker-push:
     #    repository: quay.io/myuser/myapp
@@ -39,13 +41,15 @@ test-with-wercker-cache:
     - script:
       name: Install pre-reqs
       code: |
-        yum -y install tar gzip
-    - java/maven:
+        yum -y install tar gzip procps
+    - wercker/maven:
       goals: clean compile
       cache_repo: true
-    - java/maven:
+      version: 3.5.2
+    - wercker/maven:
       goals: install
       cache_repo: true
+      version: 3.5.2
     # you should push your image now :)
     #  - internal/docker-push:
     #    repository: quay.io/myuser/myapp
