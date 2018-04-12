@@ -24,13 +24,15 @@ test-with-wercker-cache:
     - script:
       name: Install pre-reqs
       code: |
-        yum -y install tar gzip
-    - java/maven:
+        yum -y install tar gzip procpcs
+    - wercker/maven:
       goals: clean compile
       cache_repo: true
-    - java/maven:
+      version: 3.5.2
+    - wercker/maven:
       goals: install
       cache_repo: true
+      version: 3.5.2
     # you should push your image now :)
     #  - internal/docker-push:
     #    repository: quay.io/myuser/myapp
